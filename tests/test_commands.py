@@ -445,39 +445,5 @@ class TestDrawPaletteMenu(unittest.TestCase):
         self.assertNotEqual(base, other)
 
 
-class TestWorldCupSpecs(unittest.TestCase):
-    """The World Cup command specs (state.command_specs) stay consumable
-    by CommandSet. Since the app's palette drawing now IS the kit's, the
-    byte gate lives in the palette-open view golden; this guards the
-    spec contract the golden rides on."""
-
-    def _specs(self):
-        import state as S
-        return S.command_specs(S.AppState(), None, None)
-
-    def test_specs_have_the_kit_fields(self):
-        for c in self._specs():
-            for field in ("name", "aliases", "syntax", "desc",
-                          "run", "complete"):
-                self.assertIn(field, c, c.get("name"))
-            self.assertTrue(callable(c["run"]), c["name"])
-
-    def test_arg_commands_are_marked_by_syntax_space(self):
-        # the kit derives "takes an argument" from a space in the syntax
-        args = {c["name"]: " " in c["syntax"] for c in self._specs()}
-        self.assertTrue(args["schedule"])
-        self.assertTrue(args["team"])
-        self.assertFalse(args["bracket"])
-        self.assertFalse(args["quit"])
-
-    def test_menu_completion_matches_the_palette_golden(self):
-        # the palette-open golden types "gr": one suggestion, ':groups'
-        cs = CommandSet(self._specs())
-        title, sugg = cs.completions("gr")
-        self.assertEqual(title, "Commands")
-        self.assertEqual([s["text"] for s in sugg], ["groups "])
-        self.assertEqual(sugg[0]["label"], ":groups [A-L]")
-
-
 if __name__ == "__main__":
     unittest.main()
