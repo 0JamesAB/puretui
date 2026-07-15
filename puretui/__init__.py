@@ -5,7 +5,7 @@ a styled cell-grid Canvas, raw keyboard input with escape decoding, and
 a diff-based frame renderer. Pure stdlib.
 """
 
-__version__ = "0.6.0.dev0"
+__version__ = "0.6.0b1"
 
 from .term import (fg, bg, fg_hex, bg_hex, hex_rgb, style,
                    RESET, BOLD, DIM, ITALIC, UNDERLINE, BLINK, REVERSE,

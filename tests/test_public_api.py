@@ -84,9 +84,5 @@ class TestVersion(unittest.TestCase):
         self.assertIsNotNone(m, "no version in pyproject.toml")
         self.assertEqual(puretui.__version__, m.group(1))
 
-    def test_version_value(self):
-        self.assertEqual(puretui.__version__, "0.6.0.dev0")
-
-
 if __name__ == "__main__":
     unittest.main()

@@ -8,11 +8,10 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
         exclude:
+          # no 3.8/3.9 builds on arm64 macos runners; ubuntu covers the
+          # old floors (macos-13 intel runners are retired/unschedulable)
           - {os: macos-latest, python: "3.8"}
           - {os: macos-latest, python: "3.9"}
-        include:
-          - {os: macos-13, python: "3.8"}
-          - {os: macos-13, python: "3.9"}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
